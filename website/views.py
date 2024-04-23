@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from website.models import Funcionario
 from website.forms import InsereFuncionarioForm
@@ -7,6 +9,15 @@ from website.forms import InsereFuncionarioForm
 # PÁGINA PRINCIPAL
 # ----------------------------------------------
 
+# Cada método que tiver esse decorator, vai exigir login para acessar
+# Caso não precise de login, basta remover
+# Existe uma forma de fazer o inverso, dizer que todos precisa e apenas sinalizar os que não precisam
+# Mas isso exigiria a utilização/criação de um middleware
+# Outra coisa, se ao invés de CBV fosse FBV, bastaria utilizar a seguinte anotação:
+# @login_required
+# def meu_metodo(request):
+#     ...
+@method_decorator(login_required, name='dispatch')
 class IndexTemplateView(TemplateView):
     template_name = "website/index.html"
 
@@ -14,6 +25,7 @@ class IndexTemplateView(TemplateView):
 # LISTA DE FUNCIONÁRIOS
 # ----------------------------------------------
 
+@method_decorator(login_required, name='dispatch')
 class FuncionarioListView(ListView):
     template_name = "website/lista.html"
     model = Funcionario
@@ -26,6 +38,7 @@ class FuncionarioListView(ListView):
 # CADASTRAMENTO DE FUNCIONÁRIOS
 # ----------------------------------------------
 
+@method_decorator(login_required, name='dispatch')
 class FuncionarioCreateView(CreateView):
     template_name = "website/cria.html"
     model = Funcionario
@@ -36,6 +49,7 @@ class FuncionarioCreateView(CreateView):
 # ATUALIZAÇÃO DE FUNCIONÁRIOS
 # ----------------------------------------------
 
+@method_decorator(login_required, name='dispatch')
 class FuncionarioUpdateView(UpdateView):
     template_name = "website/atualiza.html"
     model = Funcionario
@@ -47,6 +61,7 @@ class FuncionarioUpdateView(UpdateView):
 # EXCLUSÃO DE FUNCIONÁRIOS
 # ----------------------------------------------
 
+@method_decorator(login_required, name='dispatch')
 class FuncionarioDeleteView(DeleteView):
     template_name = "website/exclui.html"
     model = Funcionario

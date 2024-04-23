@@ -125,3 +125,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Define para onde ele vai ser redirecionado após o login/logout por padrão
+# PS.: Se essa rota de logout_redirect também estiver protegida, ele vai ser redirecionado para o login novamente
+# Caso não esteja protegida, ele verá a página listada aqui
+LOGOUT_REDIRECT_URL = 'website:index'
+LOGIN_REDIRECT_URL = 'website:index'
