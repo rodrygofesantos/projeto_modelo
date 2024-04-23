@@ -1,3 +1,5 @@
+from django.urls.conf import include
+
 from website.views import IndexTemplateView, FuncionarioListView, FuncionarioUpdateView, FuncionarioCreateView, \
     FuncionarioDeleteView
 
@@ -35,4 +37,7 @@ urlpatterns = [
       FuncionarioDeleteView.as_view(),
       name="deleta_funcionario" # <<< Adicionar
     ),
+
+    # Estou adicionando (incluindo) as rotas de autenticação do Django, pois elas já tem as views prontas
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

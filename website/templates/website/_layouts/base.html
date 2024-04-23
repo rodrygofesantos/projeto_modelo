@@ -48,6 +48,15 @@
             <ul class="navbar-nav float-right">
                 <li class="nav-item">
                     <a class="nav-link" href="#"><b>Hora: </b>{% tempo_atual %}</a>
+                    {# Verifica se o usuário está logado para exibir o "logout" #}
+                    {% if request.user.is_authenticated %}
+                      {# agora o django utiliza post para fazer logout, por isso, criei um formulário #}
+                      <span class="nav-link">Seja bem vindo <strong>{{ request.user.username }}</strong></span>
+                      <form method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit" formaction="{% url 'website:logout' %}">Sair</button>
+                      </form>
+                    {% endif %}
                 </li>
             </ul>
         </div>
